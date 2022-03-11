@@ -1,0 +1,27 @@
+node_modules/
+
+# develop
+.vscode/
+typings/
+configs/
+scripts/
+src/
+
+# test and output
+.vscode-test/
+test/
+out/test/
+test-workspace/
+.nyc_output/
+coverage/
+
+# configs
+.gitignore
+.vscodeignore
+tsconfig.json
+tsconfig.test.json
+.nvmrc
+.eslintrc.js
+.eslintignore
+.prettierrc
+yarn.lock
