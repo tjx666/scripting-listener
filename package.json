@@ -1,9 +1,9 @@
 {
-    "name": "vscode-extension-boilerplate",
-    "displayName": "VSCode extension boilerplate",
+    "name": "scripting-listener",
+    "displayName": "Scripting Listener",
     "version": "0.0.1",
     "preview": true,
-    "description": "An awesome boilerplate for VSCode extension development",
+    "description": "Switch and Log Viewer for Adobe Photoshop Scripting Listener Plugin",
     "publisher": "YuTengjing",
     "icon": "images/logo.png",
     "license": "SEE LICENSE IN LICENSE",
@@ -29,35 +29,36 @@
         {
             "url": "https://img.shields.io/badge/License-MIT-brightgreen.svg",
             "description": "License: MIT",
-            "href": "https://github.com/tjx666/vscode-extension-boilerplate/blob/master/LICENSE"
+            "href": "https://github.com/tjx666/scripting-listener/blob/master/LICENSE"
         },
         {
             "url": "https://img.shields.io/badge/PRs-welcome-brightgreen.svg",
             "description": "PRs Welcome",
-            "href": "https://github.com/tjx666/vscode-extension-boilerplate"
+            "href": "https://github.com/tjx666/scripting-listener"
         }
     ],
-    "homepage": "https://github.com/tjx666/vscode-extension-boilerplate/blob/master/README.md",
+    "homepage": "https://github.com/tjx666/scripting-listener/blob/master/README.md",
     "bugs": {
-        "url": "https://github.com/tjx666/vscode-extension-boilerplate/issues",
+        "url": "https://github.com/tjx666/scripting-listener/issues",
         "email": "ytj2713151713@gmail.com"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/tjx666/vscode-extension-boilerplate"
+        "url": "https://github.com/tjx666/scripting-listener"
     },
     "engines": {
-        "vscode": "^1.51.0",
-        "node": ">=14.15.1"
+        "vscode": "^1.65.0",
+        "node": ">=16.14.0"
     },
     "categories": [
         "Other"
     ],
     "keywords": [
-        "vscode",
-        "vscode-extension",
-        "vscode-extension-boilerplate",
-        "boilerplate"
+        "photoshop",
+        "extendscript",
+        "scripting listener",
+        "action manager",
+        "cep"
     ],
     "activationEvents": [
         "onCommand:VSCodeExtensionBoilerplate.helloVSCode"
@@ -96,7 +97,7 @@
         "@vscode/test-electron": "^2.1.3",
         "clean-webpack-plugin": "^4.0.0",
         "cross-env": "^7.0.3",
-        "eslint": "^8.10.0",
+        "eslint": "^8.11.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-import-resolver-typescript": "^2.5.0",
         "eslint-plugin-import": "2.25.4",
