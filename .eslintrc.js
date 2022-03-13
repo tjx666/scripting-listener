@@ -11,11 +11,6 @@ module.exports = {
         es2022: true,
         node: true,
     },
-    settings: {
-        react: {
-            version: 'detect',
-        },
-    },
     extends: [
         'eslint:recommended',
         'plugin:@typescript-eslint/recommended',
@@ -38,6 +33,9 @@ module.exports = {
     },
     plugins: ['react', '@typescript-eslint'],
     settings: {
+        react: {
+            version: 'detect',
+        },
         'import/resolver': {
             node: {
                 extensions: ['.ts', '.tsx', '.js', '.json'],
