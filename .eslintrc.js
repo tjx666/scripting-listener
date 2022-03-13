@@ -5,6 +5,7 @@ const ERROR = 2;
 
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
+    root: true,
     env: {
         browser: true,
         es2022: true,
@@ -12,7 +13,7 @@ module.exports = {
     },
     settings: {
         react: {
-            version: 'latest',
+            version: 'detect',
         },
     },
     extends: [
