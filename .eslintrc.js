@@ -1,20 +1,25 @@
 const { resolve } = require;
 
 const OFF = 0;
-const WARN = 1;
 const ERROR = 2;
 
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
     env: {
         browser: true,
-        es6: true,
+        es2022: true,
         node: true,
-        mocha: true,
+    },
+    settings: {
+        react: {
+            version: 'latest',
+        },
     },
     extends: [
         'eslint:recommended',
         'plugin:@typescript-eslint/recommended',
+        'plugin:react/recommended',
+        'plugin:react/jsx-runtime',
         'plugin:unicorn/recommended',
         'prettier',
     ],
@@ -24,10 +29,13 @@ module.exports = {
     },
     parser: '@typescript-eslint/parser',
     parserOptions: {
-        ecmaVersion: 2021,
+        ecmaFeatures: {
+            jsx: true,
+        },
+        ecmaVersion: 13,
         sourceType: 'module',
     },
-    plugins: ['@typescript-eslint'],
+    plugins: ['react', '@typescript-eslint'],
     settings: {
         'import/resolver': {
             node: {
@@ -38,16 +46,19 @@ module.exports = {
                     resolve('./src/tsconfig.json'),
                     resolve('./scripts/tsconfig.json'),
                     resolve('./test/tsconfig.json'),
+                    resolve('./web/tsconfig.json'),
                 ],
             },
         },
     },
     rules: {
-        'import/extensions': OFF,
-
-        '@typescript-eslint/explicit-function-return-type': OFF,
+        '@typescript-eslint/ban-ts-comment': OFF,
+        '@typescript-eslint/no-empty-function': OFF,
+        '@typescript-eslint/no-empty-interface': OFF,
         '@typescript-eslint/no-explicit-any': OFF,
         '@typescript-eslint/no-non-null-assertion': OFF,
+        '@typescript-eslint/no-unused-vars': OFF,
+        '@typescript-eslint/explicit-function-return-type': OFF,
 
         'unicorn/consistent-function-scoping': OFF,
         'unicorn/filename-case': OFF,
@@ -67,6 +78,16 @@ module.exports = {
         'no-param-reassign': OFF,
         'no-plusplus': OFF,
         'no-unused-expressions': OFF,
+
+        'import/extensions': OFF,
+
+        'react/self-closing-comp': [
+            ERROR,
+            {
+                component: true,
+                html: true,
+            },
+        ],
     },
     overrides: [
         {

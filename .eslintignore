@@ -3,3 +3,6 @@ out
 test-workspace/
 .vscode-test/
 scripts/typings
+.eslintrc.js
+babel.config.js
+lint-staged.config.js

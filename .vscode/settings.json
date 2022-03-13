@@ -16,6 +16,10 @@
         "**/test-workspace/**": true,
         "**/.vscode-test/**": true
     },
+    "files.associations": {
+        "**/JSX/**/*.jsx": "javascript",
+        "**/Desktop/ScriptingListenerJS.log": "javascript"
+    },
     "[javascript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },

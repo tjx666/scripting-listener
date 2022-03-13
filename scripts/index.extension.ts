@@ -1,8 +1,8 @@
 import webpack, { Stats } from 'webpack';
 
-import args from './configs/args';
-import devWebpackConfig from './configs/webpack.dev';
-import prodWebpackConfig from './configs/webpack.prod';
+import args from './args';
+import devWebpackConfig from './configs/extension/webpack.dev';
+import prodWebpackConfig from './configs/extension/webpack.prod';
 
 const isProd = process.env.NODE_ENV !== 'development';
 const compiler = webpack(isProd ? prodWebpackConfig : devWebpackConfig);
