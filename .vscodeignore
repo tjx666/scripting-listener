@@ -1,6 +1,7 @@
 node_modules/
 
 # develop
+.husky
 .vscode/
 typings/
 configs/
@@ -25,3 +26,11 @@ tsconfig.test.json
 .eslintignore
 .prettierrc
 yarn.lock
+**/*.js.map
+**/.eslintrc.js
+
+JSX/typings
+JSX/jsconfig.json
+web
+babel.config.js
+lint-staged.config.js

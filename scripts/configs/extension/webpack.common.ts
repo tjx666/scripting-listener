@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import { Configuration } from 'webpack';
 import WebpackBar from 'webpackbar';
 
-const projectRoot = resolve(__dirname, '../../');
+const projectRoot = resolve(__dirname, '../../../');
 const commonWebpackConfig: Configuration = {
     target: 'node',
     entry: resolve(projectRoot, 'src/extension.ts'),

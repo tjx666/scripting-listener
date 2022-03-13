@@ -4,7 +4,7 @@ import { BannerPlugin, Configuration } from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { merge } from 'webpack-merge';
 
-import args from './args';
+import args from '../../args';
 import commonWebpackConfig from './webpack.common';
 
 const mergedConfiguration: Configuration = merge(commonWebpackConfig, {
