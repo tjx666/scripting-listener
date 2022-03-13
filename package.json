@@ -61,27 +61,25 @@
         "cep"
     ],
     "activationEvents": [
-        "onCommand:VSCodeExtensionBoilerplate.helloVSCode"
+        "onCommand:scriptingListener.enableScriptingListenerLog",
+        "onCommand:scriptingListener.disableScriptingListenerLog"
     ],
     "contributes": {
         "commands": [
             {
-                "command": "VSCodeExtensionBoilerplate.helloVSCode",
-                "title": "Hello Visual Studio Code!"
+                "command": "scriptingListener.enableScriptingListenerLog",
+                "title": "Enable Scripting Listener Log"
+            },
+            {
+                "command": "scriptingListener.disableScriptingListenerLog",
+                "title": "Disable Scripting Listener Log"
             }
         ]
     },
-    "lint-staged": {
-        "*.ts": [
-            "eslint -c .eslintrc.js",
-            "format-imports --config .vscode/import-sorter.json"
-        ],
-        "*.{ts,json,md}": [
-            "prettier --write"
-        ]
-    },
     "devDependencies": {
+        "@babel/eslint-parser": "7.17.0",
         "@nuxt/friendly-errors-webpack-plugin": "^2.5.2",
+        "@types/eslint": "8.4.1",
         "@types/glob": "^7.2.0",
         "@types/mocha": "^9.1.0",
         "@types/node": "^17.0.21",
@@ -103,9 +101,11 @@
         "eslint-plugin-import": "2.25.4",
         "eslint-plugin-prettier": "^4.0.0",
         "eslint-plugin-unicorn": "^41.0.0",
+        "execa": "5.1.1",
         "format-imports": "^3.0.1",
         "glob": "^7.2.0",
         "husky": "7.0.4",
+        "javascript-stringify": "2.1.0",
         "lint-staged": "^12.3.5",
         "mocha": "^9.2.2",
         "prettier": "^2.5.1",
@@ -113,6 +113,7 @@
         "terser-webpack-plugin": "^5.3.1",
         "ts-loader": "^9.2.8",
         "ts-node": "^10.7.0",
+        "types-for-adobe": "7.0.0",
         "typescript": "^4.6.2",
         "webpack": "^5.70.0",
         "webpack-bundle-analyzer": "^4.5.0",

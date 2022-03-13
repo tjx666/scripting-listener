@@ -4,6 +4,7 @@ const OFF = 0;
 const WARN = 1;
 const ERROR = 2;
 
+/** @type {import('eslint').Linter.Config} */
 module.exports = {
     env: {
         browser: true,
@@ -49,15 +50,7 @@ module.exports = {
         '@typescript-eslint/no-non-null-assertion': OFF,
 
         'unicorn/consistent-function-scoping': OFF,
-        'unicorn/filename-case': [
-            ERROR,
-            {
-                cases: {
-                    camelCase: true,
-                    pascalCase: true,
-                },
-            },
-        ],
+        'unicorn/filename-case': OFF,
         'unicorn/import-style': OFF,
         'unicorn/no-abusive-eslint-disable': OFF,
         'unicorn/no-array-for-each': OFF,

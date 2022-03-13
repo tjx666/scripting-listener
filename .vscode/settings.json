@@ -5,7 +5,8 @@
         "out": true,
         "test-workspace": true,
         ".vscode-test": true,
-        "**/*.lock": true
+        "**/*.lock": true,
+        "**/*-lock.json": true
     },
     "files.watcherExclude": {
         "**/.git/objects/**": true,

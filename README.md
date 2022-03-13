@@ -2,5 +2,5 @@
 
 ## Features
 
-- [ ] enable/disable scripting listener log
+- [x] enable/disable scripting listener log
 - [ ] scripting listener log viewer

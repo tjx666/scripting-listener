@@ -1,12 +1,15 @@
 import * as vscode from 'vscode';
-
-import helloWorld from './helloWorld';
+import configuration from './configuration';
 
 export function activate(context: vscode.ExtensionContext): void {
+    configuration.update(context);
     context.subscriptions.push(
-        vscode.commands.registerCommand('VSCodeExtensionBoilerplate.helloVSCode', () =>
-            helloWorld(),
-        ),
+        vscode.commands.registerCommand('scriptingListener.enableScriptingListenerLog', () => {
+            import('./switchLog/enable').then(({ enableLog }) => enableLog());
+        }),
+        vscode.commands.registerCommand('scriptingListener.disableScriptingListenerLog', () => {
+            import('./switchLog/disable').then(({ disableLog }) => disableLog());
+        }),
     );
 }
 
