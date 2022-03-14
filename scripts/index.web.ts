@@ -7,7 +7,7 @@ import { isDev } from './constants';
 
 function start() {
     const compiler = webpack(devConfig);
-    const port = 3600;
+    const port = 3000;
     const devServerOptions: DevServerConfiguration = {
         hot: false,
         client: false,
@@ -17,6 +17,10 @@ function start() {
         devMiddleware: {
             stats: 'minimal',
             writeToDisk: true,
+        },
+        allowedHosts: 'all',
+        headers: {
+            'Access-Control-Allow-Origin': '*',
         },
     };
     const server = new WebpackDevServer(devServerOptions, compiler);

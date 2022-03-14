@@ -65,7 +65,8 @@
     ],
     "activationEvents": [
         "onCommand:scriptingListener.enableScriptingListenerLog",
-        "onCommand:scriptingListener.disableScriptingListenerLog"
+        "onCommand:scriptingListener.disableScriptingListenerLog",
+        "onCommand:scriptingListener.openLogViewer"
     ],
     "contributes": {
         "commands": [
@@ -76,6 +77,10 @@
             {
                 "command": "scriptingListener.disableScriptingListenerLog",
                 "title": "Disable Scripting Listener Log"
+            },
+            {
+                "command": "scriptingListener.openLogViewer",
+                "title": "Open Scripting Listener Log Viewer"
             }
         ]
     },
@@ -124,7 +129,6 @@
         "fork-ts-checker-webpack-plugin": "7.2.1",
         "format-imports": "^3.0.1",
         "glob": "^7.2.0",
-        "html-webpack-plugin": "5.5.0",
         "husky": "7.0.4",
         "javascript-stringify": "2.1.0",
         "less": "4.1.2",

@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import configuration from './configuration';
+import LogViewer from './LogViewer';
 
 export function activate(context: vscode.ExtensionContext): void {
     configuration.update(context);
@@ -9,6 +10,10 @@ export function activate(context: vscode.ExtensionContext): void {
         }),
         vscode.commands.registerCommand('scriptingListener.disableScriptingListenerLog', () => {
             import('./switchLog/disable').then(({ disableLog }) => disableLog());
+        }),
+
+        vscode.commands.registerCommand('scriptingListener.openLogViewer', () => {
+            LogViewer.createOrShow(context.extensionUri);
         }),
     );
 }

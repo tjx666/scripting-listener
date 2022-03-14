@@ -1,6 +1,5 @@
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { resolve as resolvePath } from 'path';
 import { Configuration } from 'webpack';
 
@@ -29,12 +28,6 @@ const configuration: Configuration = {
     },
     plugins: [
         new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin({
-            template: resolvePath(webDir, 'public/index.html'),
-            minify: isDev
-                ? false
-                : { minifyJS: true, removeComments: true, collapseWhitespace: true },
-        }),
         new ForkTsCheckerWebpackPlugin({
             typescript: {
                 configFile: resolvePath(webDir, 'tsconfig.json'),
