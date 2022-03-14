@@ -3,10 +3,11 @@ import { resolve } from 'path';
 import { Configuration } from 'webpack';
 import WebpackBar from 'webpackbar';
 
-const projectRoot = resolve(__dirname, '../../../');
+import { PROJECT_ROOT } from '../../constants';
+
 const commonWebpackConfig: Configuration = {
     target: 'node',
-    entry: resolve(projectRoot, 'src/extension.ts'),
+    entry: resolve(PROJECT_ROOT, 'src/extension.ts'),
     infrastructureLogging: {
         level: 'log', // enables logging required for problem matchers
     },
@@ -14,7 +15,7 @@ const commonWebpackConfig: Configuration = {
         library: {
             type: 'commonjs2',
         },
-        path: resolve(projectRoot, 'dist'),
+        path: resolve(PROJECT_ROOT, 'dist'),
         filename: 'extension.js',
         devtoolModuleFilenameTemplate: '../[resource-path]',
     },
@@ -29,7 +30,7 @@ const commonWebpackConfig: Configuration = {
                 exclude: /node_modules/,
                 loader: 'ts-loader',
                 options: {
-                    configFile: resolve(projectRoot, 'src/tsconfig.json'),
+                    configFile: resolve(PROJECT_ROOT, 'src/tsconfig.json'),
                 },
             },
         ],

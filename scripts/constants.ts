@@ -1,7 +1,7 @@
 import { resolve as resolvePath } from 'path';
 
 const PROJECT_ROOT = resolvePath(__dirname, '..');
-const BUILD_DIR = resolvePath(PROJECT_ROOT, '../build');
+const WEB_BUILD_DIR = resolvePath(PROJECT_ROOT, 'dist/web');
 const isDev = process.env.NODE_ENV === 'development';
 
-export { PROJECT_ROOT, BUILD_DIR, isDev };
+export { PROJECT_ROOT, WEB_BUILD_DIR, isDev };

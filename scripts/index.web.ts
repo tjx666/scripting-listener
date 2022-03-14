@@ -16,7 +16,6 @@ function start() {
         open: false,
         devMiddleware: {
             stats: 'minimal',
-            writeToDisk: true,
         },
         allowedHosts: 'all',
         headers: {

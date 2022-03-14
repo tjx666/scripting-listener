@@ -59,7 +59,7 @@ export default class LogViewer {
         const isProd = false;
         const localPort = 3000;
         const localServerUrl = `localhost:${localPort}`;
-        const scriptRelativePath = 'js/main.js';
+        const scriptRelativePath = 'webview.js';
         const scriptUri = isProd
             ? webview
                   .asWebviewUri(Uri.joinPath(this.extensionUri, 'build', scriptRelativePath))
