@@ -3,7 +3,7 @@ import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import { resolve as resolvePath } from 'path';
 import { Configuration } from 'webpack';
 
-import { WEB_BUILD_DIR, __DEV__, PROJECT_ROOT, WEB_HOST, WEB_PORT } from '../../constants';
+import { __DEV__, PROJECT_ROOT, WEB_BUILD_DIR, WEB_HOST, WEB_PORT } from '../../constants';
 
 const webDir = resolvePath(PROJECT_ROOT, 'web');
 const devEntries = ['webpack/hot/dev-server.js', 'webpack-dev-server/client/index.js?hot=true'];

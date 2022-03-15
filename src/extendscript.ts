@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/text-encoding-identifier-case */
 import fs from 'fs/promises';
 import pathUtils from 'path';
 
@@ -52,8 +51,8 @@ async function evalFile(scriptPath: string, options?: EvalFileOptions) {
     // a script to inject some helper functions
     // for example: print function, which print string as result
     const injectApiScriptPath = pathUtils.resolve(EXTENSION_DIR, 'JSX/inject.jsx');
-    const injectApiScript = await fs.readFile(injectApiScriptPath, 'utf-8');
-    let script = await fs.readFile(scriptPath, 'utf-8');
+    const injectApiScript = await fs.readFile(injectApiScriptPath, 'utf8');
+    let script = await fs.readFile(scriptPath, 'utf8');
     script = injectApiScript.replace('// ${executeScriptCode}', script);
 
     // args
@@ -77,13 +76,13 @@ async function evalFile(scriptPath: string, options?: EvalFileOptions) {
 	do javascript "${escapeStringAppleScript(script)}"
 end tell`;
     await Promise.all([
-        await fs.writeFile(jsxOutputFilePath, '', 'utf-8'),
-        await fs.writeFile(appleScriptPath, appleScript, 'utf-8'),
+        await fs.writeFile(jsxOutputFilePath, '', 'utf8'),
+        await fs.writeFile(appleScriptPath, appleScript, 'utf8'),
     ]);
 
     let result: any;
     await execa('osascript', [appleScriptPath]);
-    const output = await fs.readFile(jsxOutputFilePath, 'utf-8');
+    const output = await fs.readFile(jsxOutputFilePath, 'utf8');
     try {
         result = JSON.parse(output);
     } catch {

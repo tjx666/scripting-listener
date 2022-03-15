@@ -7,4 +7,4 @@ const WEB_BUILD_DIR = resolvePath(BUILD_DIR, 'web');
 const WEB_HOST = 'localhost';
 const WEB_PORT = 3000;
 
-export { BUILD_DIR, __DEV__, PROJECT_ROOT, WEB_BUILD_DIR, WEB_HOST, WEB_PORT };
+export { __DEV__, BUILD_DIR, PROJECT_ROOT, WEB_BUILD_DIR, WEB_HOST, WEB_PORT };
