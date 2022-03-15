@@ -3,7 +3,7 @@ import WebpackDevServer, { Configuration as DevServerConfiguration } from 'webpa
 
 import devConfig from './configs/web/webpack.dev';
 import prodConfig from './configs/web/webpack.prod';
-import { isDev, WEB_HOST, WEB_PORT } from './constants';
+import { __DEV__, WEB_HOST, WEB_PORT } from './constants';
 
 function start() {
     const compiler = webpack(devConfig);
@@ -39,7 +39,7 @@ function build() {
     });
 }
 
-if (isDev) {
+if (__DEV__) {
     start();
 } else {
     build();
