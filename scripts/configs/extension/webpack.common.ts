@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import { Configuration } from 'webpack';
 import WebpackBar from 'webpackbar';
 
-import { PROJECT_ROOT } from '../../constants';
+import { BUILD_DIR, PROJECT_ROOT } from '../../constants';
 
 const commonWebpackConfig: Configuration = {
     target: 'node',
@@ -15,7 +15,7 @@ const commonWebpackConfig: Configuration = {
         library: {
             type: 'commonjs2',
         },
-        path: resolve(PROJECT_ROOT, 'dist'),
+        path: BUILD_DIR,
         filename: 'extension.js',
         devtoolModuleFilenameTemplate: '../[resource-path]',
     },
