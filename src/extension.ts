@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import configuration from './configuration';
-import LogViewer from './LogViewer';
+import LogViewer from './LogViewer/LogViewer';
 
 export function activate(context: vscode.ExtensionContext): void {
     configuration.update(context);
