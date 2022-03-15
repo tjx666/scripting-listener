@@ -17,7 +17,7 @@
                 "**/Resources/app/out/vs/**"
             ],
             "sourceMaps": true,
-            "preLaunchTask": "${defaultBuildTask}"
+            "preLaunchTask": "tasks: dev"
         },
         {
             "name": "Extension Tests",
@@ -35,7 +35,7 @@
                 "**/Resources/app/out/vs/**"
             ],
             "sourceMaps": true,
-            "preLaunchTask": "tasks: watch-tests"
+            "preLaunchTask": "tasks: test"
         },
         {
             "name": "AE JSX",
