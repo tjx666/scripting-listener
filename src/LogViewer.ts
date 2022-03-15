@@ -1,7 +1,7 @@
 import vscode, { Uri } from 'vscode';
 
 export default class LogViewer {
-    public static readonly viewType = 'LogViewer';
+    public static readonly viewType = 'Scripting Listener LogViewer';
     public static currentPanel: LogViewer | undefined;
 
     private readonly panel: vscode.WebviewPanel;
@@ -109,7 +109,7 @@ export default class LogViewer {
 function getWebviewOptions(extensionUri: vscode.Uri): vscode.WebviewOptions {
     return {
         enableScripts: true,
-        localResourceRoots: [vscode.Uri.joinPath(extensionUri, 'build')],
+        localResourceRoots: [vscode.Uri.joinPath(extensionUri, 'dist')],
     };
 }
 

@@ -3,16 +3,16 @@ import WebpackDevServer, { Configuration as DevServerConfiguration } from 'webpa
 
 import devConfig from './configs/web/webpack.dev';
 import prodConfig from './configs/web/webpack.prod';
-import { isDev } from './constants';
+import { isDev, WEB_HOST, WEB_PORT } from './constants';
 
 function start() {
     const compiler = webpack(devConfig);
-    const port = 3000;
     const devServerOptions: DevServerConfiguration = {
         hot: false,
         client: false,
         liveReload: true,
-        port,
+        host: WEB_HOST,
+        port: WEB_PORT,
         open: false,
         devMiddleware: {
             stats: 'minimal',
@@ -21,6 +21,7 @@ function start() {
         headers: {
             'Access-Control-Allow-Origin': '*',
         },
+        https: false,
     };
     const server = new WebpackDevServer(devServerOptions, compiler);
     server.start();

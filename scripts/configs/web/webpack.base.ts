@@ -3,7 +3,7 @@ import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import { resolve as resolvePath } from 'path';
 import { Configuration } from 'webpack';
 
-import { WEB_BUILD_DIR, isDev, PROJECT_ROOT } from '../../constants';
+import { WEB_BUILD_DIR, isDev, PROJECT_ROOT, WEB_HOST, WEB_PORT } from '../../constants';
 
 const webDir = resolvePath(PROJECT_ROOT, 'web');
 const devEntries = ['webpack/hot/dev-server.js', 'webpack-dev-server/client/index.js?hot=true'];
@@ -11,6 +11,7 @@ const devEntries = ['webpack/hot/dev-server.js', 'webpack-dev-server/client/inde
 const configuration: Configuration = {
     entry: [...(isDev ? devEntries : []), resolvePath(webDir, 'index.tsx')],
     output: {
+        publicPath: `http://${WEB_HOST}:${WEB_PORT}`,
         path: WEB_BUILD_DIR,
         filename: 'webview.js',
     },
