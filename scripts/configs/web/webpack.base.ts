@@ -1,17 +1,30 @@
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import { resolve as resolvePath } from 'path';
-import { Configuration } from 'webpack';
+import type { Configuration } from 'webpack';
 
 import { __DEV__, PROJECT_ROOT, WEB_BUILD_DIR, WEB_HOST, WEB_PORT } from '../../constants';
 
 const webDir = resolvePath(PROJECT_ROOT, 'web');
-const devEntries = ['webpack/hot/dev-server.js', 'webpack-dev-server/client/index.js?hot=true'];
+const devServerClientOptions = {
+    hot: true,
+    protocol: 'ws',
+    hostname: 'localhost',
+    port: 3000,
+    pathname: 'ws',
+};
+const devServerClientParams = Object.entries(devServerClientOptions)
+    .map(([k, v]) => `${k}=${v}`)
+    .join('&');
+const devEntries = [
+    'webpack/hot/dev-server.js',
+    `webpack-dev-server/client/index.js?${devServerClientParams}`,
+];
 
 const configuration: Configuration = {
     entry: [...(__DEV__ ? devEntries : []), resolvePath(webDir, 'index.tsx')],
     output: {
-        publicPath: `http://${WEB_HOST}:${WEB_PORT}`,
+        publicPath: `http://${WEB_HOST}:${WEB_PORT}/`,
         path: WEB_BUILD_DIR,
         filename: 'webview.js',
     },
