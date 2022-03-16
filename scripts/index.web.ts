@@ -10,7 +10,7 @@ function start() {
     const devServerOptions: DevServerConfiguration = {
         hot: false,
         client: false,
-        liveReload: true,
+        liveReload: false,
         host: WEB_HOST,
         port: WEB_PORT,
         open: false,
