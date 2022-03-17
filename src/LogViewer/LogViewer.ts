@@ -7,6 +7,7 @@ export default class LogViewer {
     private readonly panel: vscode.WebviewPanel;
     private readonly extensionUri: vscode.Uri;
     private readonly disposables: vscode.Disposable[] = [];
+    private html = '';
 
     public static createOrShow(extensionUri: vscode.Uri) {
         const column = vscode.window.activeTextEditor
@@ -43,8 +44,9 @@ export default class LogViewer {
         this.panel.webview.onDidReceiveMessage(
             (message) => {
                 switch (message.command) {
-                    case 'alert':
-                        vscode.window.showErrorMessage(message.text);
+                    case 'reload':
+                        this.html = this.html.replace(/nonce="\w+?"/, `nonce="${getNonce()}"`);
+                        this.panel.webview.html = this.html;
                         return;
                 }
             },
@@ -75,7 +77,7 @@ export default class LogViewer {
             `font-src ${webview.cspSource}`,
             `connect-src ${isProd ? '' : `ws://${localServerUrl} ws://0.0.0.0:${localPort} http://${localServerUrl} http://0.0.0.0:${localPort}`}`
         ];
-        const html = `<!DOCTYPE html>
+        this.html = `<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
@@ -85,10 +87,10 @@ export default class LogViewer {
     </head>
     <body>
         <div id="root"></div>
-        <script ${isProd ? `nonce="${nonce}"` : ''} src="${scriptUri}"></script>
+        <script nonce="${nonce}" src="${scriptUri}"></script>
     </body>
 </html>`;
-        this.panel.webview.html = html;
+        webview.html = this.html;
     }
 
     public dispose() {

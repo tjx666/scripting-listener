@@ -104,6 +104,7 @@
         "@types/react-dom": "17.0.13",
         "@types/terser-webpack-plugin": "^5.2.0",
         "@types/vscode": "1.65.0",
+        "@types/vscode-webview": "1.57.0",
         "@types/webpack": "^5.28.0",
         "@types/webpack-bundle-analyzer": "^4.4.1",
         "@types/webpack-env": "1.16.3",

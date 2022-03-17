@@ -16,8 +16,9 @@ const devServerClientOptions = {
 const devServerClientParams = Object.entries(devServerClientOptions)
     .map(([k, v]) => `${k}=${v}`)
     .join('&');
+const webpackHotDevServer = resolvePath(__dirname, './webpack-hot-dev-server.js');
 const devEntries = [
-    'webpack/hot/dev-server.js',
+    webpackHotDevServer,
     `webpack-dev-server/client/index.js?${devServerClientParams}`,
 ];
 
