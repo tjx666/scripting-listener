@@ -58,6 +58,7 @@ module.exports = {
         '@typescript-eslint/no-non-null-assertion': OFF,
         '@typescript-eslint/no-unused-vars': OFF,
         '@typescript-eslint/explicit-function-return-type': OFF,
+        '@typescript-eslint/ban-types': OFF,
 
         'unicorn/consistent-function-scoping': OFF,
         'unicorn/filename-case': OFF,

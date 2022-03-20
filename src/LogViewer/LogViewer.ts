@@ -1,4 +1,5 @@
 import vscode, { Uri } from 'vscode';
+import LogWatcher from './LogWatcher';
 
 export default class LogViewer {
     public static readonly viewType = 'Scripting Listener LogViewer';
@@ -7,6 +8,7 @@ export default class LogViewer {
     private readonly panel: vscode.WebviewPanel;
     private readonly extensionUri: vscode.Uri;
     private readonly disposables: vscode.Disposable[] = [];
+    private readonly logWatcher = new LogWatcher();
     private html = '';
 
     public static createOrShow(extensionUri: vscode.Uri) {
@@ -53,6 +55,16 @@ export default class LogViewer {
             null,
             this.disposables,
         );
+
+        const logWatcher = this.logWatcher;
+        logWatcher.watch(this.handleLogChange.bind(this));
+    }
+
+    private async handleLogChange(parsedCodeBlocks: string[]) {
+        this.panel.webview.postMessage({
+            command: 'scriptingListener.updateCodeBlocks',
+            data: parsedCodeBlocks,
+        });
     }
 
     private setupHtmlForWebview() {
@@ -105,6 +117,8 @@ export default class LogViewer {
                 x.dispose();
             }
         }
+
+        this.logWatcher.dispose();
     }
 }
 

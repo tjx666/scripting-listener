@@ -41,4 +41,34 @@ function escapeStringAppleScript(string: string) {
     return string.replace(/[\\"]/g, '\\$&');
 }
 
-export { uuidV4, pathExists, toFixed, escapeStringAppleScript };
+function debounce<F extends (...args: any) => any>(fn: F, delay: number, immediate: boolean) {
+    let timerId: NodeJS.Timeout | undefined;
+    function debouncedFn(this: any, ...args: Parameters<F>) {
+        return new Promise((resolve) => {
+            if (timerId !== undefined) {
+                clearTimeout(timerId);
+            }
+
+            if (immediate && timerId === undefined) {
+                timerId = setTimeout(() => {
+                    timerId = undefined;
+                }, delay);
+                resolve(fn.apply(this, args));
+            } else {
+                timerId = setTimeout(() => {
+                    resolve(fn.apply(this, args));
+                    timerId = undefined;
+                }, delay);
+            }
+        });
+    }
+
+    debouncedFn.cancel = function () {
+        clearTimeout(timerId);
+        timerId = undefined;
+    };
+
+    return debouncedFn;
+}
+
+export { uuidV4, pathExists, toFixed, escapeStringAppleScript, debounce };
