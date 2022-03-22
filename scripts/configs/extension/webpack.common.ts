@@ -22,6 +22,7 @@ const commonWebpackConfig: Configuration = {
     resolve: { extensions: ['.ts', '.js', '.json'] },
     externals: {
         vscode: 'commonjs vscode',
+        fsevents: 'commonjs fsevents',
     },
     module: {
         rules: [

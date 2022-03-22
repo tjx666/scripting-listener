@@ -8,11 +8,13 @@ import { debounce } from '../utils';
 
 const SEPARATOR = '// =======================================================';
 
-export default class LogWatcher {
+class LogWatcher {
+    public static readonly logWatcher = new LogWatcher();
+
     private watcher: FSWatcher;
     private descriptorParser: DescriptorParser;
 
-    constructor() {
+    private constructor() {
         this.watcher = chokidar.watch(SCRIPTING_LISTENER_LOG_PATH, {});
         this.descriptorParser = new DescriptorParser();
     }
@@ -51,3 +53,5 @@ export default class LogWatcher {
         this.watcher.close();
     }
 }
+
+export default LogWatcher.logWatcher;

@@ -25,7 +25,6 @@ const devEntries = [
 const configuration: Configuration = {
     entry: [...(__DEV__ ? devEntries : []), resolvePath(webDir, 'index.tsx')],
     output: {
-        publicPath: `http://${WEB_HOST}:${WEB_PORT}/`,
         path: WEB_BUILD_DIR,
         filename: 'webview.js',
     },
