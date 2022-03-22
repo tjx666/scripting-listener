@@ -5,7 +5,7 @@ import execa from 'execa';
 import { stringify } from 'javascript-stringify';
 
 import { EXTENSION_DIR } from './constants';
-import { escapeStringAppleScript, uuidV4 } from './utils';
+import { dateFormat, escapeStringAppleScript, pathExists, uuidV4 } from './utils';
 import configuration from './configuration';
 
 /**
@@ -42,10 +42,13 @@ async function evalFile(scriptPath: string, options?: EvalFileOptions) {
     const uuid = uuidV4();
 
     const jsxOutputFolder = pathUtils.resolve(configuration.globalStoragePath, 'jsx/output');
-    await fs.mkdir(jsxOutputFolder, { recursive: true });
+    if (!(await pathExists(jsxOutputFolder))) {
+        await fs.mkdir(jsxOutputFolder, { recursive: true });
+    }
+    const dateStr = dateFormat(new Date(), '%Y-%m-%d-%H:%M:%S', false);
     const jsxOutputFilePath = pathUtils.resolve(
         jsxOutputFolder,
-        `${getFileNameWithoutExt(scriptPath)}-${uuid}.txt`,
+        `${dateStr}-${getFileNameWithoutExt(scriptPath)}-${uuid}.txt`,
     );
 
     // a script to inject some helper functions
@@ -68,8 +71,13 @@ async function evalFile(scriptPath: string, options?: EvalFileOptions) {
     }
 
     const appleScriptsFolder = pathUtils.resolve(configuration.globalStoragePath, 'apple_scripts');
-    await fs.mkdir(appleScriptsFolder, { recursive: true });
-    const appleScriptPath = pathUtils.resolve(appleScriptsFolder, `ps-command-${uuid}.scpt`);
+    if (!(await pathExists(appleScriptsFolder))) {
+        await fs.mkdir(appleScriptsFolder, { recursive: true });
+    }
+    const appleScriptPath = pathUtils.resolve(
+        appleScriptsFolder,
+        `${dateStr}-ps-command-${uuid}.scpt`,
+    );
     // see: https://community.adobe.com/t5/photoshop-ecosystem-discussions/running-a-jsx-script-with-applescript-in-photoshop-using-do-javascript/td-p/11035403
     const appleScript = `tell application "${app}"
 	activate
@@ -81,7 +89,7 @@ end tell`;
     ]);
 
     let result: any;
-    await execa('osascript', [appleScriptPath]);
+    await execa.execa('osascript', [appleScriptPath]);
     const output = await fs.readFile(jsxOutputFilePath, 'utf8');
     try {
         result = JSON.parse(output);

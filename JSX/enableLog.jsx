@@ -1,4 +1,4 @@
-(function () {
+(function enableScriptListenerLog() {
     var listenerID = stringIDToTypeID('AdobeScriptListener ScriptListener');
     var keyLogID = charIDToTypeID('Log ');
     var desc = new ActionDescriptor();

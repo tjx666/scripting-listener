@@ -71,4 +71,35 @@ function debounce<F extends (...args: any) => any>(fn: F, delay: number, immedia
     return debouncedFn;
 }
 
-export { uuidV4, pathExists, toFixed, escapeStringAppleScript, debounce };
+function dateFormat(date: Date, formatStr: string, isUtc: boolean) {
+    const getPrefix = isUtc ? 'getUTC' : 'get';
+    // eslint-disable-next-line unicorn/better-regex
+    return formatStr.replace(/%[YmdHMS]/g, (m: string) => {
+        let replaceStrNum: number;
+        switch (m) {
+            case '%Y':
+                return String(date[`${getPrefix}FullYear`]()); // no leading zeros required
+            case '%m':
+                replaceStrNum = 1 + date[`${getPrefix}Month`]();
+                break;
+            case '%d':
+                replaceStrNum = date[`${getPrefix}Date`]();
+                break;
+            case '%H':
+                replaceStrNum = date[`${getPrefix}Hours`]();
+                break;
+            case '%M':
+                replaceStrNum = date[`${getPrefix}Minutes`]();
+                break;
+            case '%S':
+                replaceStrNum = date[`${getPrefix}Seconds`]();
+                break;
+            default:
+                return m.slice(1); // unknown code, remove %
+        }
+        // add leading zero if required
+        return `0${replaceStrNum}`.slice(-2);
+    });
+}
+
+export { uuidV4, pathExists, toFixed, escapeStringAppleScript, debounce, dateFormat };
