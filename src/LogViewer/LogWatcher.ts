@@ -45,7 +45,6 @@ class LogWatcher {
             const parsedCodeBlocks = await this.getParsedCodeBlocks();
             await handler(parsedCodeBlocks);
         };
-        handleChange();
         this.watcher.on('change', debounce(handleChange, 100, true));
     }
 

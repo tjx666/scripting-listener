@@ -39,24 +39,29 @@ export class LogViewer {
         this.extensionUri = extensionUri;
 
         // setup listeners
-        this.panel.onDidDispose(() => this.dispose(), null, this.disposables);
-        this.panel.webview.onDidReceiveMessage(this.handleWebViewMessage, null, this.disposables);
-        logWatcher.watch(this.handleLogChange.bind(this));
+        this.panel.onDidDispose(() => this.dispose(), this, this.disposables);
+        this.panel.webview.onDidReceiveMessage(this.handleWebViewMessage, this, this.disposables);
+        logWatcher.watch(this.updateCodeBlocks.bind(this));
         this.disposables.push(logWatcher);
 
         // Set the webview's initial html content
         this.setupHtmlForWebview();
     }
 
-    private handleWebViewMessage(message: any) {
+    private async handleWebViewMessage(message: any) {
         switch (message.command) {
             case 'reload':
                 vscode.commands.executeCommand('workbench.action.webview.reloadWebviewAction');
                 return;
+            case 'scriptingListener.refresh': {
+                const parsedCodeBlocks = await logWatcher.getParsedCodeBlocks();
+                await this.updateCodeBlocks(parsedCodeBlocks);
+                return;
+            }
         }
     }
 
-    private async handleLogChange(parsedCodeBlocks: string[]) {
+    private async updateCodeBlocks(parsedCodeBlocks: string[]) {
         this.panel.webview.postMessage({
             command: 'scriptingListener.updateCodeBlocks',
             data: parsedCodeBlocks,

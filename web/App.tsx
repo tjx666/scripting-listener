@@ -9,6 +9,12 @@ interface MessageData<T> {
     data: T;
 }
 
+function refresh() {
+    window.__vscode__.postMessage({
+        command: 'scriptingListener.refresh',
+    });
+}
+
 export default function App() {
     const [codeBlocks, setCodeBlocks] = useState<string[]>([]);
 
@@ -24,6 +30,8 @@ export default function App() {
             }
         };
         window.addEventListener('message', handleMessage);
+        // refresh when open webview or reload window
+        refresh();
 
         return () => window.removeEventListener('message', handleMessage);
     }, []);
