@@ -16,6 +16,8 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'plugin:react/recommended',
         'plugin:react/jsx-runtime',
+        'plugin:react-hooks/recommended',
+        'plugin:jsx-a11y/recommended',
         'plugin:unicorn/recommended',
         'prettier',
     ],
@@ -31,7 +33,7 @@ module.exports = {
         ecmaVersion: 13,
         sourceType: 'module',
     },
-    plugins: ['react', '@typescript-eslint'],
+    plugins: ['@typescript-eslint', 'react', 'jsx-a11y'],
     settings: {
         react: {
             version: 'detect',
