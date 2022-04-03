@@ -10,7 +10,7 @@ if (module.hot) {
         window.__reload__ = function () {
             console.log('post message to vscode to reload!');
             window.__vscode__.postMessage({
-                command: 'reload',
+                command: 'scriptingListener.reload',
                 text: 'from web view',
             });
         };

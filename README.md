@@ -3,8 +3,14 @@
 ## Features
 
 - [x] enable/disable scripting listener log
-- [ ] scripting listener log viewer
+- [x] scripting listener log viewer
 
-## Progress
+## Usage
 
-![progress](https://github.com/tjx666/scripting-listener/blob/master/images/screenshots/progress.png?raw=true)
+### enable/disable scripting listener log
+
+Just call command `Enable Scripting Listener Log` and `Disable Scripting Listener Log`
+
+### scripting listener log viewer
+
+Open log viewer by call command `Open Scripting Listener Log Viewer`

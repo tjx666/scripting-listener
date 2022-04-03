@@ -1,6 +1,6 @@
 import FriendlyErrorsPlugin from '@nuxt/friendly-errors-webpack-plugin';
 import { resolve } from 'path';
-import { Configuration } from 'webpack';
+import { Configuration, DefinePlugin } from 'webpack';
 import WebpackBar from 'webpackbar';
 
 import { BUILD_DIR, PROJECT_ROOT } from '../../constants';
@@ -42,6 +42,9 @@ const commonWebpackConfig: Configuration = {
             color: '#0066B8',
         }),
         new FriendlyErrorsPlugin(),
+        new DefinePlugin({
+            VSCODE_EXTENSION_ENV: `'${process.env.NODE_ENV}'`,
+        }),
     ],
 };
 

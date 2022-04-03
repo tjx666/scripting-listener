@@ -33,5 +33,10 @@ yarn.lock
 JSX/typings
 JSX/jsconfig.json
 web
+dist
+!dist/web
+!dist/extension.js
+images
+!images/logo.png
 babel.config.js
 lint-staged.config.js

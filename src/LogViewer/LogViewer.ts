@@ -1,4 +1,7 @@
 import vscode from 'vscode';
+
+import { __DEV__ } from '../constants';
+import { getNonce } from '../utils';
 import logWatcher from './LogWatcher';
 
 export class LogViewer {
@@ -26,7 +29,7 @@ export class LogViewer {
             column ?? vscode.ViewColumn.One,
             {
                 enableScripts: true,
-                localResourceRoots: [],
+                localResourceRoots: [extensionUri],
                 retainContextWhenHidden: true,
             },
         );
@@ -45,12 +48,12 @@ export class LogViewer {
         this.disposables.push(logWatcher);
 
         // Set the webview's initial html content
-        this.setupHtmlForWebview();
+        this.setupHtmlForWebview(this.panel.webview);
     }
 
     private async handleWebViewMessage(message: any) {
         switch (message.command) {
-            case 'reload':
+            case 'scriptingListener.reload':
                 vscode.commands.executeCommand('workbench.action.webview.reloadWebviewAction');
                 return;
             case 'scriptingListener.refresh': {
@@ -76,17 +79,29 @@ export class LogViewer {
         });
     }
 
-    private setupHtmlForWebview() {
+    private setupHtmlForWebview(webview: vscode.Webview) {
+        const scriptSrc = __DEV__
+            ? 'http://localhost:3000/webview.js'
+            : webview.asWebviewUri(
+                  vscode.Uri.joinPath(this.extensionUri, 'dist', 'web', 'webview.js'),
+              );
+        const nonce = getNonce();
+        const nonceAttr = __DEV__ ? '' : `nonce="${nonce}"`;
+        const cspMeta = __DEV__
+            ? ''
+            : `<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}';">`;
+
         this.html = `<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        ${cspMeta}
         <title>Scripting Listener</title>
     </head>
     <body>
         <div id="root"></div>
-        <script src="http://localhost:3000/webview.js"></script>
+        <script ${nonceAttr} src="${scriptSrc}"></script>
     </body>
 </html>`;
         this.panel.webview.html = this.html;

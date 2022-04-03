@@ -8,5 +8,6 @@ const EXTENSION_DIR = vscode.extensions.getExtension(
 const JSX_DIR = path.resolve(EXTENSION_DIR, 'JSX');
 const SYSTEM = process.platform === 'win32' ? 'Window' : 'MacOS';
 const SCRIPTING_LISTENER_LOG_PATH = path.resolve(homedir(), 'Desktop/ScriptingListenerJS.log');
+const __DEV__ = VSCODE_EXTENSION_ENV !== 'production';
 
-export { EXTENSION_DIR, JSX_DIR, SYSTEM, SCRIPTING_LISTENER_LOG_PATH };
+export { EXTENSION_DIR, JSX_DIR, SYSTEM, SCRIPTING_LISTENER_LOG_PATH, __DEV__ };
