@@ -1,4 +1,4 @@
-# Script Listener
+# Scripting Listener
 
 Switch and Log Viewer for Adobe Photoshop Scripting Listener Plugin.
 
