@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import App from './App';
+import Viewer from './Viewer';
 import './index.less';
 
-ReactDOM.render(<App />, document.querySelector('#root'));
+ReactDOM.render(<Viewer />, document.querySelector('#root'));

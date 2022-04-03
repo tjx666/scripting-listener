@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import pathUtils from 'path';
 
-import execa from 'execa';
+import { execa } from 'execa';
 import { stringify } from 'javascript-stringify';
 
 import { EXTENSION_DIR } from './constants';
@@ -89,7 +89,7 @@ end tell`;
     ]);
 
     let result: any;
-    await execa.execa('osascript', [appleScriptPath]);
+    await execa('osascript', [appleScriptPath]);
     const output = await fs.readFile(jsxOutputFilePath, 'utf8');
     try {
         result = JSON.parse(output);

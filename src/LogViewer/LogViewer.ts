@@ -58,6 +58,14 @@ export class LogViewer {
                 await this.updateCodeBlocks(parsedCodeBlocks);
                 return;
             }
+            case 'scriptingListener.enableLogging': {
+                vscode.commands.executeCommand('scriptingListener.enableScriptingListenerLog');
+                return;
+            }
+            case 'scriptingListener.disableLogging': {
+                vscode.commands.executeCommand('scriptingListener.disableScriptingListenerLog');
+                return;
+            }
         }
     }
 
