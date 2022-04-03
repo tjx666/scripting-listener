@@ -1,4 +1,8 @@
 export default class DescriptorParser {
+    private static CODE_BLOCK_SEPARATOR =
+        '// =======================================================';
+    private static LINE_SEPARATOR = /\n/;
+
     /*
      * Remove unnecessary charID and stringID variables for a shorter code
      */
@@ -43,7 +47,9 @@ export default class DescriptorParser {
      */
     cleanVariables(data: string) {
         const lines = data.split('\n');
-        const variables: Record<string, string> = {};
+        const descVarMapper = new Map<string, string>();
+        const refVarMapper = new Map<string, string>();
+        const listVarMapper = new Map<string, string>();
         const actionLines: string[] = [];
         let descCount = 1;
         let refCount = 1;
@@ -58,24 +64,30 @@ export default class DescriptorParser {
             ) {
                 actionLines.push(line);
                 const variableName = line.replace(/[\s+]*var /, '').replace(/ =.+/, '');
-                let newVariableName;
                 if (line.match('ActionDescriptor')) {
-                    newVariableName = 'desc' + descCount;
-                    descCount = descCount + 1;
+                    descVarMapper.set(variableName, `desc${descCount}`);
+                    descCount++;
                 } else if (line.match('ActionReference')) {
-                    newVariableName = 'ref' + refCount;
-                    refCount = refCount + 1;
+                    refVarMapper.set(variableName, `ref${refCount}`);
+                    refCount++;
                 } else if (line.match('ActionList')) {
-                    newVariableName = 'list' + listCount;
-                    listCount = listCount + 1;
+                    listVarMapper.set(variableName, `list${listCount}`);
+                    listCount++;
                 }
-                variables[variableName] = newVariableName;
             } else {
                 let cleanLine = line;
                 if (cleanLine[0] === ' ') {
                     cleanLine = cleanLine.replace(/\s+/, '');
                 }
                 actionLines.push(cleanLine);
+            }
+        });
+
+        // turn desc1 => desc when only one desc var
+        [descVarMapper, refVarMapper, listVarMapper].forEach((mapper) => {
+            if (mapper.size === 1) {
+                const onlyEntry = [...mapper.entries()][0];
+                mapper.set(onlyEntry[0], onlyEntry[1].slice(0, -1));
             }
         });
 
@@ -87,21 +99,21 @@ export default class DescriptorParser {
             const descVars = actionLine.match(/desc\w+/g);
             if (descVars && descVars.length > 0) {
                 descVars.forEach(function (descVar) {
-                    parsedLine = parsedLine.replace(descVar, variables[descVar]);
+                    parsedLine = parsedLine.replace(descVar, descVarMapper.get(descVar));
                 });
             }
 
             const refVars = actionLine.match(/ref\w+/g);
             if (refVars && refVars.length > 0) {
                 refVars.forEach(function (refVar) {
-                    parsedLine = parsedLine.replace(refVar, variables[refVar]);
+                    parsedLine = parsedLine.replace(refVar, refVarMapper.get(refVar));
                 });
             }
 
             const listVars = actionLine.match(/list\w+/g);
             if (listVars && listVars.length > 0) {
                 listVars.forEach(function (listVar) {
-                    parsedLine = parsedLine.replace(listVar, variables[listVar]);
+                    parsedLine = parsedLine.replace(listVar, listVarMapper.get(listVar));
                 });
             }
 
@@ -109,5 +121,40 @@ export default class DescriptorParser {
         });
 
         return parsedLines.join('\n');
+    }
+
+    cleanTripleQuotes(codeBlock: string) {
+        return codeBlock.replaceAll(/"""(.*?)"""/g, `"$1"`);
+    }
+
+    removeBracketSpace(codeBlock: string) {
+        return codeBlock.replaceAll(/\( /g, '(').replaceAll(/ \)/g, ')');
+    }
+
+    parse(code: string, parseCount: number) {
+        const codeBlocks = code.split(DescriptorParser.CODE_BLOCK_SEPARATOR);
+        const maxLineCount = 100;
+        const parsedCodeBlocks: string[] = [];
+        let parsedCount = 0;
+        for (let i = codeBlocks.length - 1; i >= 0; i--) {
+            const codeBlock = codeBlocks[i];
+            if (codeBlock.trim() === '') continue;
+
+            let paredCodeBlock = codeBlock;
+            const lines = codeBlock.split(DescriptorParser.LINE_SEPARATOR);
+            if (lines.length > maxLineCount) {
+                paredCodeBlock = lines.slice(0, maxLineCount).join('\n');
+                paredCodeBlock += `\n// ${lines.length - maxLineCount} lines is omitted...`;
+            }
+
+            paredCodeBlock = this.cleanVariables(paredCodeBlock);
+            paredCodeBlock = this.cleanJSX(paredCodeBlock);
+            paredCodeBlock = this.cleanTripleQuotes(paredCodeBlock);
+            paredCodeBlock = this.removeBracketSpace(paredCodeBlock);
+            parsedCodeBlocks.push(paredCodeBlock);
+            parsedCount++;
+            if (parsedCount === parseCount) break;
+        }
+        return parsedCodeBlocks;
     }
 }

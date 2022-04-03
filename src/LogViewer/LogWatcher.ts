@@ -6,8 +6,6 @@ import DescriptorParser from './DescriptorParser';
 import { SCRIPTING_LISTENER_LOG_PATH } from '../constants';
 import { debounce } from '../utils';
 
-const SEPARATOR = '// =======================================================';
-
 class LogWatcher {
     public static readonly logWatcher = new LogWatcher();
 
@@ -20,24 +18,10 @@ class LogWatcher {
     }
 
     async getParsedCodeBlocks() {
-        const logBuffer = await fs.readFile(SCRIPTING_LISTENER_LOG_PATH);
-        const logText = iconv.decode(logBuffer, 'gbk');
-        const codeBlocks = logText.split(SEPARATOR);
-        const parsedCodeBlocks: string[] = [];
-        const parseCount = 3;
-        let parsedCount = 0;
-        for (let i = codeBlocks.length - 1; i >= 0; i--) {
-            const codeBlock = codeBlocks[i];
-            if (codeBlock.trim() === '') continue;
-
-            const paredCodeBlock = this.descriptorParser.cleanJSX(
-                this.descriptorParser.cleanVariables(codeBlock),
-            );
-            parsedCodeBlocks.push(paredCodeBlock);
-            parsedCount++;
-            if (parsedCount === parseCount) break;
-        }
-        return parsedCodeBlocks;
+        // const logBuffer = await fs.readFile(SCRIPTING_LISTENER_LOG_PATH);
+        // const logText = iconv.decode(logBuffer, 'gbk');
+        const logText = await fs.readFile(SCRIPTING_LISTENER_LOG_PATH, { encoding: 'utf8' });
+        return this.descriptorParser.parse(logText, 10);
     }
 
     watch(handler: (parsedCodeBlocks: string[]) => Promise<void>) {

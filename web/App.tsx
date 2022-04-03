@@ -1,8 +1,8 @@
 import { useLayoutEffect, useState } from 'react';
-import hljs from 'highlight.js/lib/core';
+import highlightJS from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 
-hljs.registerLanguage('javascript', javascript);
+highlightJS.registerLanguage('javascript', javascript);
 
 interface MessageData<T> {
     command: string;
@@ -24,7 +24,7 @@ export default function App() {
                 setCodeBlocks(event.data.data);
                 setTimeout(() => {
                     document.querySelectorAll('pre code').forEach((el) => {
-                        hljs.highlightElement(el as HTMLElement);
+                        highlightJS.highlightElement(el as HTMLElement);
                     });
                 });
             }
