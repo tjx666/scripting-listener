@@ -1,8 +1,9 @@
 import { useLayoutEffect, useState } from 'react';
-import highlightJS from 'highlight.js/lib/core';
-import javascript from 'highlight.js/lib/languages/javascript';
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+import js from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript';
+import atomOneDark from 'react-syntax-highlighter/dist/esm/styles/hljs/atom-one-dark';
 
-highlightJS.registerLanguage('javascript', javascript);
+SyntaxHighlighter.registerLanguage('javascript', js);
 
 interface MessageData<T> {
     command: string;
@@ -22,11 +23,6 @@ export default function App() {
         const handleMessage = (event: MessageEvent<MessageData<string[]>>) => {
             if (event.data.command === 'scriptingListener.updateCodeBlocks') {
                 setCodeBlocks(event.data.data);
-                setTimeout(() => {
-                    document.querySelectorAll('pre code').forEach((el) => {
-                        highlightJS.highlightElement(el as HTMLElement);
-                    });
-                });
             }
         };
         window.addEventListener('message', handleMessage);
@@ -39,9 +35,9 @@ export default function App() {
     const renderList = (codeBlocks: string[]) => {
         return codeBlocks.map((codeBlock, index) => {
             return (
-                <pre key={index}>
-                    <code className="language-javascript">{codeBlock}</code>
-                </pre>
+                <SyntaxHighlighter key={index} language="javascript" style={atomOneDark}>
+                    {codeBlock}
+                </SyntaxHighlighter>
             );
         });
     };

@@ -18,9 +18,9 @@ class LogWatcher {
     }
 
     async getParsedCodeBlocks() {
-        // const logBuffer = await fs.readFile(SCRIPTING_LISTENER_LOG_PATH);
-        // const logText = iconv.decode(logBuffer, 'gbk');
-        const logText = await fs.readFile(SCRIPTING_LISTENER_LOG_PATH, { encoding: 'utf8' });
+        const logBuffer = await fs.readFile(SCRIPTING_LISTENER_LOG_PATH);
+        const logText = iconv.decode(logBuffer, 'gbk');
+        // const logText = await fs.readFile(SCRIPTING_LISTENER_LOG_PATH, { encoding: 'utf8' });
         return this.descriptorParser.parse(logText, 10);
     }
 
