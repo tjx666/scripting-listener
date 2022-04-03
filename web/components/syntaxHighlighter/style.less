@@ -6,28 +6,25 @@
 
     &:hover {
         .copy {
-            opacity: 0.8;
+            opacity: 1;
         }
     }
 
     .copy {
         position: absolute;
-        top: 6px;
-        right: 6px;
+        top: 10px;
+        right: 10px;
+        padding: 3px 8px;
+        color: white;
         cursor: pointer;
+        background-color: #404754;
         border: 0;
-        border-radius: 1px;
+        border-radius: 2px;
         opacity: 0;
         transition: opacity 0.15s ease-in-out;
 
         &:active {
-            background-color: #bbb;
+            background-color: transparent;
         }
-    }
-}
-
-body[data-vscode-theme-name='One Dark Pro'] {
-    .syntax-highlighter {
-        border: 1px solid #ccc;
     }
 }
