@@ -1,0 +1,9 @@
+var desc = new ActionDescriptor();
+var ref = new ActionReference();
+ref.putName(stringIDToTypeID("layer"), "Layer 2");
+desc.putReference(stringIDToTypeID("null"), ref);
+desc.putBoolean(stringIDToTypeID("makeVisible"), false);
+var list = new ActionList();
+list.putInteger(233);
+desc.putList(stringIDToTypeID("layerID"), list);
+executeAction(stringIDToTypeID("select"), desc, DialogModes.NO);

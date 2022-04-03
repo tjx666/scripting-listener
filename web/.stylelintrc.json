@@ -10,6 +10,7 @@
         "alpha-value-notation": null,
         "color-function-notation": null,
         "comment-empty-line-before": null,
+        "custom-property-pattern": null,
         "declaration-empty-line-before": null,
         "function-name-case": "lower",
         "no-descending-specificity": null,

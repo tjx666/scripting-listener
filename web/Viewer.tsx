@@ -1,12 +1,8 @@
 import { VSCodeButton, VSCodeCheckbox } from '@vscode/webview-ui-toolkit/react';
+import SyntaxHighlighter from 'components/syntaxHighlighter';
 import { useLayoutEffect, useState } from 'react';
-import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
-import js from 'react-syntax-highlighter/dist/esm/languages/hljs/javascript';
-import atomOneDark from 'react-syntax-highlighter/dist/esm/styles/hljs/atom-one-dark';
 
 import { ReceivedCommand, SendedCommand } from './constants';
-
-SyntaxHighlighter.registerLanguage('javascript', js);
 
 interface MessageData<T> {
     command: `scriptingListener.${string}`;
@@ -54,8 +50,8 @@ export default function Viewer() {
                 <VSCodeButton onClick={() => send(SendedCommand.DisableLogging)}>
                     Disable Logging
                 </VSCodeButton>
-                {/* <VSCodeButton onClick={() => refresh()}>Refresh</VSCodeButton>
-                <VSCodeButton onClick={() => setCodeBlocks([])}>Clear</VSCodeButton> */}
+                <VSCodeButton onClick={() => refresh()}>Refresh</VSCodeButton>
+                <VSCodeButton onClick={() => setCodeBlocks([])}>Clear</VSCodeButton>
                 <VSCodeCheckbox
                     checked={reverseOrder}
                     onChange={() => setReverseOrder(!reverseOrder)}
@@ -73,16 +69,7 @@ export default function Viewer() {
         }
 
         return cbs.map((codeBlock, index) => {
-            return (
-                <SyntaxHighlighter
-                    className="code-block"
-                    key={index}
-                    language="javascript"
-                    style={atomOneDark}
-                >
-                    {codeBlock}
-                </SyntaxHighlighter>
-            );
+            return <SyntaxHighlighter key={index} className="code-block" code={codeBlock} />;
         });
     };
 
