@@ -1,7 +1,7 @@
 {
     "name": "scripting-listener",
     "displayName": "Scripting Listener",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "preview": true,
     "description": "Switch and Log Viewer for Adobe Photoshop Scripting Listener Plugin",
     "publisher": "YuTengjing",
@@ -58,6 +58,7 @@
     ],
     "keywords": [
         "photoshop",
+        "ps",
         "extendscript",
         "scripting listener",
         "action manager",
