@@ -1,6 +1,7 @@
+import fs from 'fs/promises';
 import vscode from 'vscode';
 
-import { __DEV__ } from '../constants';
+import { SCRIPTING_LISTENER_LOG_PATH, __DEV__ } from '../constants';
 import { getNonce } from '../utils';
 import logWatcher from './LogWatcher';
 
@@ -67,6 +68,10 @@ export class LogViewer {
             }
             case 'scriptingListener.disableLogging': {
                 vscode.commands.executeCommand('scriptingListener.disableScriptingListenerLog');
+                return;
+            }
+            case 'scriptingListener.clean': {
+                await fs.writeFile(SCRIPTING_LISTENER_LOG_PATH, '', { encoding: 'utf8' });
                 return;
             }
         }

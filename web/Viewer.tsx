@@ -1,20 +1,9 @@
 import { VSCodeButton, VSCodeCheckbox } from '@vscode/webview-ui-toolkit/react';
-import SyntaxHighlighter from 'components/syntaxHighlighter';
 import { useLayoutEffect, useState } from 'react';
 
-import { ReceivedCommand, SendedCommand } from './constants';
+import SyntaxHighlighter from 'components/syntaxHighlighter';
 
-interface MessageData<T> {
-    command: `scriptingListener.${string}`;
-    data: T;
-}
-
-function send<T>(command: string, data?: MessageData<T>) {
-    window.__vscode__.postMessage({
-        command: `scriptingListener.${command}`,
-        data,
-    });
-}
+import { MessageData, ReceivedCommand, send, SendedCommand } from './message';
 
 function refresh() {
     send(SendedCommand.Refresh);
@@ -51,7 +40,7 @@ export default function Viewer() {
                     Disable Logging
                 </VSCodeButton>
                 <VSCodeButton onClick={() => refresh()}>Refresh</VSCodeButton>
-                <VSCodeButton onClick={() => setCodeBlocks([])}>Clear</VSCodeButton>
+                <VSCodeButton onClick={() => send(SendedCommand.Clean)}>Clear</VSCodeButton>
                 <VSCodeCheckbox
                     checked={reverseOrder}
                     onChange={() => setReverseOrder(!reverseOrder)}
