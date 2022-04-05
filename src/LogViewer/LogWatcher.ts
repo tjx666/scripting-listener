@@ -1,10 +1,10 @@
 import chokidar, { FSWatcher } from 'chokidar';
 import fs from 'fs/promises';
-import iconv from 'iconv-lite';
 
 import DescriptorParser from './DescriptorParser';
 import { SCRIPTING_LISTENER_LOG_PATH } from '../constants';
 import { debounce } from '../utils';
+import configuration from '../configuration';
 
 class LogWatcher {
     public static readonly logWatcher = new LogWatcher();
@@ -18,10 +18,16 @@ class LogWatcher {
     }
 
     async getParsedCodeBlocks() {
-        const logBuffer = await fs.readFile(SCRIPTING_LISTENER_LOG_PATH);
-        const logText = iconv.decode(logBuffer, 'gbk');
-        // const logText = await fs.readFile(SCRIPTING_LISTENER_LOG_PATH, { encoding: 'utf8' });
-        return this.descriptorParser.parse(logText, 10);
+        let logText = '';
+        const encoding = configuration.logFileEncoding!;
+        if (encoding === 'utf-8' || encoding === 'utf8') {
+            logText = await fs.readFile(SCRIPTING_LISTENER_LOG_PATH, { encoding: 'utf-8' });
+        } else {
+            const iconv = await import('iconv-lite');
+            const logBuffer = await fs.readFile(SCRIPTING_LISTENER_LOG_PATH);
+            logText = iconv.decode(logBuffer, configuration.logFileEncoding!);
+        }
+        return this.descriptorParser.parse(logText, configuration.codeBlockCount!);
     }
 
     watch(handler: (parsedCodeBlocks: string[]) => Promise<void>) {

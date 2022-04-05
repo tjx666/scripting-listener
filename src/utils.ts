@@ -64,7 +64,7 @@ function debounce<F extends (...args: any) => any>(fn: F, delay: number, immedia
     }
 
     debouncedFn.cancel = function () {
-        clearTimeout(timerId);
+        if (timerId !== undefined) clearTimeout(timerId);
         timerId = undefined;
     };
 

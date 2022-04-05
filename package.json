@@ -87,7 +87,31 @@
                 "command": "scriptingListener.openLogFile",
                 "title": "Open Scripting Listener Log File"
             }
-        ]
+        ],
+        "configuration": {
+            "title": "Scripting Listener",
+            "properties": {
+                "ScriptingListener.codeBlockCount": {
+                    "description": "The count of code blocks to show in log viewer, will cause stuck if set too large",
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 100,
+                    "default": 10
+                },
+                "ScriptingListener.parsedLinesCountPerCodeBlock": {
+                    "description": "The count of lines will be clean and pretty per code block",
+                    "type": "integer",
+                    "minimum": 10,
+                    "maximum": 5000,
+                    "default": 100
+                },
+                "ScriptingListener.logFileEncoding": {
+                    "description": "The encoding of your log file, you may need to set gbk if your Photoshop is Chinese locale",
+                    "type": "string",
+                    "default": "utf8"
+                }
+            }
+        }
     },
     "devDependencies": {
         "@babel/core": "7.17.8",

@@ -20,7 +20,7 @@ export class LogViewer {
             : undefined;
 
         if (LogViewer.currentLogViewer) {
-            LogViewer.currentLogViewer.panel.reveal(column);
+            LogViewer.currentLogViewer.panel!.reveal(column);
             return;
         }
 
@@ -77,10 +77,10 @@ export class LogViewer {
         }
     }
 
-    private async updateCodeBlocks(parsedCodeBlocks: string[]) {
-        this.panel.webview.postMessage({
+    public async updateCodeBlocks(parsedCodeBlocks?: string[]) {
+        this.panel?.webview.postMessage({
             command: 'scriptingListener.updateCodeBlocks',
-            data: parsedCodeBlocks,
+            data: parsedCodeBlocks ?? (await logWatcher.getParsedCodeBlocks()),
         });
     }
 
@@ -109,7 +109,9 @@ export class LogViewer {
         <script ${nonceAttr} src="${scriptSrc}"></script>
     </body>
 </html>`;
-        this.panel.webview.html = this.html;
+        if (this.panel?.webview) {
+            this.panel.webview.html = this.html;
+        }
     }
 
     private dispose() {

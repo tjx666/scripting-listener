@@ -1,3 +1,5 @@
+import configuration from '../configuration';
+
 export default class DescriptorParser {
     private static CODE_BLOCK_SEPARATOR =
         '// =======================================================';
@@ -99,21 +101,21 @@ export default class DescriptorParser {
             const descVars = actionLine.match(/desc\w+/g);
             if (descVars && descVars.length > 0) {
                 descVars.forEach(function (descVar) {
-                    parsedLine = parsedLine.replace(descVar, descVarMapper.get(descVar));
+                    parsedLine = parsedLine.replace(descVar, descVarMapper.get(descVar)!);
                 });
             }
 
             const refVars = actionLine.match(/ref\w+/g);
             if (refVars && refVars.length > 0) {
                 refVars.forEach(function (refVar) {
-                    parsedLine = parsedLine.replace(refVar, refVarMapper.get(refVar));
+                    parsedLine = parsedLine.replace(refVar, refVarMapper.get(refVar)!);
                 });
             }
 
             const listVars = actionLine.match(/list\w+/g);
             if (listVars && listVars.length > 0) {
                 listVars.forEach(function (listVar) {
-                    parsedLine = parsedLine.replace(listVar, listVarMapper.get(listVar));
+                    parsedLine = parsedLine.replace(listVar, listVarMapper.get(listVar)!);
                 });
             }
 
@@ -133,7 +135,7 @@ export default class DescriptorParser {
 
     parse(code: string, parseCount: number) {
         const codeBlocks = code.split(DescriptorParser.CODE_BLOCK_SEPARATOR);
-        const maxLineCount = 100;
+        const maxLineCount = configuration.parsedLinesCountPerCodeBlock!;
         const parsedCodeBlocks: string[] = [];
         let parsedCount = 0;
         for (let i = codeBlocks.length - 1; i >= 0; i--) {
