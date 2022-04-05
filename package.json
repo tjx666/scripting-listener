@@ -66,7 +66,8 @@
     "activationEvents": [
         "onCommand:scriptingListener.enableScriptingListenerLog",
         "onCommand:scriptingListener.disableScriptingListenerLog",
-        "onCommand:scriptingListener.openLogViewer"
+        "onCommand:scriptingListener.openLogViewer",
+        "onCommand:scriptingListener.openLogFile"
     ],
     "contributes": {
         "commands": [
@@ -81,6 +82,10 @@
             {
                 "command": "scriptingListener.openLogViewer",
                 "title": "Open Scripting Listener Log Viewer"
+            },
+            {
+                "command": "scriptingListener.openLogFile",
+                "title": "Open Scripting Listener Log File"
             }
         ]
     },

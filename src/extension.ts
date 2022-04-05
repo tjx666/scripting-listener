@@ -17,6 +17,10 @@ export function activate(context: vscode.ExtensionContext): void {
                 LogViewer.createOrShow(context.extensionUri);
             });
         }),
+
+        vscode.commands.registerCommand('scriptingListener.openLogFile', () => {
+            import('./openLogFile').then(({ openLogFile }) => openLogFile());
+        }),
     );
 }
 
