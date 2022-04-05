@@ -8,6 +8,7 @@ Switch and Log Viewer for Adobe Photoshop Scripting Listener Plugin.
 
 - enable/disable scripting listener log
 - scripting listener log viewer
+- open scripting listener log file
 
 ## Usage
 
@@ -29,6 +30,11 @@ The buttons on top of log viewer:
 - `Clear`: empty Scripting Listener log file
 
 By default, the log viewer only show 10 code blocks, and every code block will only be parsed 100 lines.
+You can custom the behavior by settings:
+
+- ScriptingListener.codeBlockCount
+- ScriptingListener.parsedLinesCountPerCodeBlock
+
 The code will be clean and pretty:
 
 Source:
@@ -62,3 +68,7 @@ executeAction(stringIDToTypeID('historyStateChanged'), desc, DialogModes.NO);
 ```
 
 ![LogViewer](https://github.com/tjx666/scripting-listener/blob/master/images/LogViewer.gif?raw=true)
+
+### Open Scripting Listener Log File
+
+Calling command `Open Scripting Listener Log File` will open the log file using `javascript` language mode and apply the encoding what you set. You can define the encoding with setting: `ScriptingListener.logFileEncoding`, default is `utf-8`. For Chinese users, you may need to set encoding to `gbk` if your Photoshop is Chinese locale.
