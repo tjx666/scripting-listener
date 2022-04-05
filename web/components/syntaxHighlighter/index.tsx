@@ -1,10 +1,10 @@
-import HighlightJS from 'highlight.js/lib/core';
+import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import { memo, useLayoutEffect, useRef } from 'react';
 
 import './style.less';
 
-HighlightJS.registerLanguage('javascript', javascript);
+hljs.registerLanguage('javascript', javascript);
 
 interface SyntaxHighlighterProps {
     className?: string;
@@ -15,7 +15,7 @@ function SyntaxHighlighter({ className = '', code }: SyntaxHighlighterProps) {
     const codeElementRef = useRef<HTMLElement>(null);
 
     useLayoutEffect(() => {
-        HighlightJS.highlightElement(codeElementRef.current!);
+        hljs.highlightElement(codeElementRef.current!);
     }, [code]);
 
     const copyToClipboard = () => {
