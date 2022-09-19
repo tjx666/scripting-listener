@@ -1,4 +1,4 @@
-import * as vscode from 'vscode';
+import vscode from 'vscode';
 import configuration from './configuration';
 import type { LogViewer } from './LogViewer/LogViewer';
 
