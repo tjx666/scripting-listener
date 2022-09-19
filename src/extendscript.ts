@@ -1,19 +1,20 @@
+import { execa } from 'execa';
 import fs from 'fs/promises';
+import { stringify } from 'javascript-stringify';
 import pathUtils from 'path';
 
-import { execa } from 'execa';
-import { stringify } from 'javascript-stringify';
-
+import configuration from './configuration';
 import { EXTENSION_DIR } from './constants';
 import { dateFormat, escapeStringAppleScript, pathExists, uuidV4 } from './utils';
-import configuration from './configuration';
 
 /**
  * find host app path, only support MacOS
  * @param appName like: Adobe Photoshop
- * @returns Adobe Photoshop 2021.app
+ * @returns eg: /Applications/Adobe Photoshop 2022
  */
 async function findApp(appName: string) {
+    if (configuration.psAppFolderPath) return configuration.psAppFolderPath;
+
     const appsDir = '/Applications';
     const appFolderNames = await fs.readdir(appsDir);
 

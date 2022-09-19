@@ -110,6 +110,10 @@
                     "description": "The encoding of your log file, you may need to set gbk if your Photoshop is Chinese locale",
                     "type": "string",
                     "default": "utf8"
+                },
+                "ScriptingListener.psAppFolderPath": {
+                    "type": "string",
+                    "title": "For example: /Applications/Adobe Photoshop 2022"
                 }
             }
         }

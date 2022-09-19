@@ -7,6 +7,7 @@ class Configuration {
     codeBlockCount?: number;
     parsedLinesCountPerCodeBlock?: number;
     logFileEncoding?: Encoding;
+    psAppFolderPath?: string;
 
     private constructor() {
         this.update();
@@ -21,6 +22,7 @@ class Configuration {
                 'parsedLinesCountPerCodeBlock',
             )!;
             this.logFileEncoding = latestConfiguration.get('logFileEncoding')!;
+            this.psAppFolderPath = latestConfiguration.get('psAppFolderPath');
         }
     }
 }
