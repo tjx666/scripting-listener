@@ -3,7 +3,7 @@ import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import { resolve as resolvePath } from 'path';
 import type { Configuration } from 'webpack';
 
-import { __DEV__, PROJECT_ROOT, WEB_BUILD_DIR, WEB_HOST, WEB_PORT } from '../../constants';
+import { __DEV__, PROJECT_ROOT, WEB_BUILD_DIR } from '../../constants';
 
 const webDir = resolvePath(PROJECT_ROOT, 'web');
 const devServerClientOptions = {

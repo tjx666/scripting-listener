@@ -34,6 +34,7 @@ export class LogViewer {
                 retainContextWhenHidden: true,
             },
         );
+        logWatcher.start();
 
         LogViewer.currentLogViewer = new LogViewer(panel, extensionUri);
     }
@@ -70,7 +71,7 @@ export class LogViewer {
                 vscode.commands.executeCommand('scriptingListener.disableScriptingListenerLog');
                 return;
             }
-            case 'scriptingListener.clean': {
+            case 'scriptingListener.clear': {
                 await fs.writeFile(SCRIPTING_LISTENER_LOG_PATH, '', { encoding: 'utf8' });
                 return;
             }

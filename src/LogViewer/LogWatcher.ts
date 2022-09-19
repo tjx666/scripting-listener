@@ -9,12 +9,12 @@ import configuration from '../configuration';
 class LogWatcher {
     public static readonly logWatcher = new LogWatcher();
 
-    private watcher: FSWatcher;
-    private descriptorParser: DescriptorParser;
+    private watcher?: FSWatcher;
+    private descriptorParser = new DescriptorParser();
 
-    private constructor() {
+    start() {
+        this.watcher?.close();
         this.watcher = chokidar.watch(SCRIPTING_LISTENER_LOG_PATH, {});
-        this.descriptorParser = new DescriptorParser();
     }
 
     async getParsedCodeBlocks() {
@@ -35,11 +35,12 @@ class LogWatcher {
             const parsedCodeBlocks = await this.getParsedCodeBlocks();
             await handler(parsedCodeBlocks);
         };
-        this.watcher.on('change', debounce(handleChange, 100, true));
+        this.watcher!.on('change', debounce(handleChange, 100, true));
     }
 
     dispose() {
-        this.watcher.close();
+        this.watcher?.close();
+        this.watcher = undefined;
     }
 }
 

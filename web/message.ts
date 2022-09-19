@@ -6,7 +6,7 @@ export enum SendedCommand {
     EnableLogging = 'enableLogging',
     DisableLogging = 'disableLogging',
     Refresh = 'refresh',
-    Clean = 'clean',
+    Clear = 'clear',
 }
 
 export interface MessageData<T> {

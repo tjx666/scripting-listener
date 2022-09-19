@@ -1,5 +1,5 @@
 import { VSCodeButton, VSCodeCheckbox } from '@vscode/webview-ui-toolkit/react';
-import { useLayoutEffect, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react';
 
 import SyntaxHighlighter from 'components/syntaxHighlighter';
 
@@ -27,12 +27,17 @@ export default function Viewer() {
         return () => window.removeEventListener('message', handleMessage);
     }, []);
 
-    const handleEnableLogging = () => {
+    const handleEnableLogging = useCallback(() => {
         send(SendedCommand.EnableLogging);
         send(SendedCommand.Refresh);
-    };
+    }, []);
 
-    const renderToolbar = () => {
+    const handleClear = useCallback(() => {
+        send(SendedCommand.Clear);
+        send(SendedCommand.Refresh);
+    }, []);
+
+    const toolbar = useMemo(() => {
         return (
             <div className="toolbar">
                 <VSCodeButton onClick={handleEnableLogging}>Enable Logging</VSCodeButton>
@@ -40,7 +45,7 @@ export default function Viewer() {
                     Disable Logging
                 </VSCodeButton>
                 <VSCodeButton onClick={() => refresh()}>Refresh</VSCodeButton>
-                <VSCodeButton onClick={() => send(SendedCommand.Clean)}>Clear</VSCodeButton>
+                <VSCodeButton onClick={handleClear}>Clear</VSCodeButton>
                 <VSCodeCheckbox
                     checked={reverseOrder}
                     onChange={() => setReverseOrder(!reverseOrder)}
@@ -49,22 +54,25 @@ export default function Viewer() {
                 </VSCodeCheckbox>
             </div>
         );
-    };
+    }, [handleClear, handleEnableLogging, reverseOrder]);
 
-    const renderList = (codeBlocks: string[]) => {
-        const cbs = [...codeBlocks];
-        if (!reverseOrder) {
-            cbs.reverse();
-        }
+    const renderList = useCallback(
+        (codeBlocks: string[]) => {
+            const cbs = [...codeBlocks];
+            if (!reverseOrder) {
+                cbs.reverse();
+            }
 
-        return cbs.map((codeBlock, index) => {
-            return <SyntaxHighlighter key={index} className="code-block" code={codeBlock} />;
-        });
-    };
+            return cbs.map((codeBlock, index) => {
+                return <SyntaxHighlighter key={index} className="code-block" code={codeBlock} />;
+            });
+        },
+        [reverseOrder],
+    );
 
     return (
         <div className="viewer">
-            {renderToolbar()}
+            {toolbar}
             {renderList(codeBlocks)}
         </div>
     );

@@ -11,7 +11,7 @@ const prodConfig = merge(baseConfig, {
         ...(args.analyze
             ? [
                   new BundleAnalyzerPlugin({
-                      analyzerPort: 3000,
+                      analyzerPort: 3001,
                   }) as any,
               ]
             : []),

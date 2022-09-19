@@ -1,6 +1,6 @@
 import HighlightJS from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
-import { memo, useLayoutEffect, useRef } from 'react';
+import { memo, useCallback, useLayoutEffect, useRef } from 'react';
 
 import './style.less';
 
@@ -18,9 +18,9 @@ function SyntaxHighlighter({ className = '', code }: SyntaxHighlighterProps) {
         HighlightJS.highlightElement(codeElementRef.current!);
     }, [code]);
 
-    const copyToClipboard = () => {
+    const copyToClipboard = useCallback(() => {
         navigator.clipboard.writeText(code);
-    };
+    }, [code]);
 
     return (
         <pre className={`syntax-highlighter ${className}`}>
