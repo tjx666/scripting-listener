@@ -1,3 +1,9 @@
+## [0.0.4] - 2022-09-20
+
+### Added
+
+- new settings: psAppFolderPath
+
 ## [0.0.3] - 2022-04-05
 
 ### Added
